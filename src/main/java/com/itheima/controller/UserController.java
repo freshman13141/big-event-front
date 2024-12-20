@@ -28,6 +28,7 @@ public class UserController {
     private UserService userService;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    //注册
     @PostMapping("/register")
     public Result register(@Pattern(regexp = "^\\S{5,16}$") String username,@Pattern(regexp = "^\\S{5,16}$") String password){
         User u = userService.findByUserName(username);
@@ -40,6 +41,7 @@ public class UserController {
             return Result.error("用户名已被占用");
         }
     }
+    //登录
     @PostMapping("/login")
     public Result login(@Pattern(regexp = "^\\S{5,16}$") String username,@Pattern(regexp = "^\\S{5,16}$") String password){
         User u = userService.findByUserName(username);
@@ -64,6 +66,7 @@ public class UserController {
             return Result.error("用户名不存在");
         }
     }
+    //获取用户信息
     @GetMapping("/userInfo")
     public Result<User> userInfo(/*@RequestHeader(name = "Authorization") String token*/){
        /* Map<String, Object> map = JwtUtil.parseToken(token);
@@ -73,6 +76,7 @@ public class UserController {
         User user = userService.findByUserName(username);
         return Result.success(user);
     }
+    //更新用户信息
     @PutMapping("/update")
     public Result update(@RequestBody @Validated User user){
         userService.update(user);
@@ -83,6 +87,7 @@ public class UserController {
         userService.updateAvatar(avatarUrl);
         return Result.success();
     }
+    //更新密码
     @PatchMapping("/updatePwd")
     public Result updatePwd(@RequestBody Map<String,String> params,@RequestHeader("Authorization") String token){
         String oldPwd = params.get("old_pwd");

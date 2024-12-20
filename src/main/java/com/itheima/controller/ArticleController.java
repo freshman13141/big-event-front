@@ -27,7 +27,7 @@ public class ArticleController {
         return Result.success();
     }
     @GetMapping
-    public Result<PageBean<Article>> list(
+    public Result<PageBean<Article>> list(//PageBean对象，每个PageBean里面有多个article,分页展示
             Integer pageNum,
             Integer pageSize,
             @RequestParam(required = false)Integer categoryId,
@@ -37,17 +37,17 @@ public class ArticleController {
        return Result.success(pb);
     }
     @GetMapping("/detail")
-    public Result<Article> getArticleById(Integer id){
+    public Result<Article> getArticleById(Integer id){//获取文章详情
         Article article = articleService.getArticleById(id);
         return Result.success(article);
     }
     @PutMapping
-    public Result update(@RequestBody @Validated Article article){
+    public Result update(@RequestBody @Validated Article article){//更新文章
         articleService.update(article);
         return Result.success();
     }
     @DeleteMapping
-    public Result delete(Integer id){
+    public Result delete(Integer id){//删除文章
         articleService.delete(id);
         return Result.success();
     }

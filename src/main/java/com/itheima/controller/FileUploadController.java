@@ -15,7 +15,7 @@ public class FileUploadController {
     @PostMapping("/upload")
     public Result<String> upload(MultipartFile file) throws Exception {
         String originalFileName = file.getOriginalFilename();
-        String fileName = UUID.randomUUID().toString()+originalFileName.substring(originalFileName.lastIndexOf("."));
+        String fileName = UUID.randomUUID() + originalFileName.substring(originalFileName.lastIndexOf("."));
 //        file.transferTo(new File("E:\\idm\\常规\\图片1\\"+fileName));
         String url = AliOssUtil.uploadFile(fileName,file.getInputStream());
         return Result.success(url);
