@@ -32,6 +32,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             ThreadLocalUtil.set(claims);
             return true;
         } catch (Exception e) {
+            //未登录，设置浏览器返回状态码位401
             response.setStatus(401);
             return false;
         }
