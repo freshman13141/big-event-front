@@ -1,6 +1,5 @@
 package com.itheima.controller;
 
-import com.auth0.jwt.JWT;
 import com.itheima.pojo.Result;
 import com.itheima.pojo.User;
 import com.itheima.service.UserService;
@@ -35,7 +34,7 @@ public class UserController {
         if (u==null){
             // 没被占用
             userService.register(username, password);
-            return Result.success();
+            return Result.success("注册成功");
         }else {
             // 被占用
             return Result.error("用户名已被占用");
@@ -43,7 +42,7 @@ public class UserController {
     }
     //登录
     @PostMapping("/login")
-    public Result login(@Pattern(regexp = "^\\S{5,16}$") String username,@Pattern(regexp = "^\\S{5,16}$") String password){
+    public Result login(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password){
         User u = userService.findByUserName(username);
         if (u!=null){
             // 存在该用户
@@ -80,12 +79,12 @@ public class UserController {
     @PutMapping("/update")
     public Result update(@RequestBody @Validated User user){
         userService.update(user);
-        return Result.success();
+        return Result.success("更新用户信息成功");
     }
     @PatchMapping("/updateAvatar")
     public Result updateAvatar(@RequestParam @URL String avatarUrl){
         userService.updateAvatar(avatarUrl);
-        return Result.success();
+        return Result.success("更新用户头像成功");
     }
     //更新密码
     @PatchMapping("/updatePwd")
@@ -110,6 +109,6 @@ public class UserController {
         //删除redis中原密码的token
         ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
         operations.getOperations().delete(token);
-        return Result.success();
+        return Result.success("更新密码成功");
     }
 }

@@ -27,7 +27,7 @@ public class ArticleController {
         return Result.success();
     }
     @GetMapping
-    public Result<PageBean<Article>> list(//PageBean对象，每个PageBean里面有多个article,分页展示
+    public Result<PageBean<Article>> list(//分页展示 PageBean对象，每个PageBean里面是article集合,有一个属性total
             Integer pageNum,
             Integer pageSize,
             @RequestParam(required = false)Integer categoryId,

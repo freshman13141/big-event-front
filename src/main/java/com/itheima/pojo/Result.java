@@ -22,6 +22,7 @@ public class Result<T> {
     }
 
     //快速返回操作成功响应结果
+    //参数列表不同，方法名相同，典型的方法重载
     public static Result success() {
         return new Result(0, "操作成功", null);
     }

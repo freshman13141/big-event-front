@@ -32,17 +32,23 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public PageBean<Article> list(Integer pageNum, Integer pageSize, Integer categoryId, String state) {
-        //创建PageBean对象
-        PageBean<Article> pb = new PageBean<>();
+
+        //开启分页查询
         PageHelper.startPage(pageNum,pageSize);
+
         //调用mapper
         Map<String,Object> map = ThreadLocalUtil.get();
         Integer userId = (Integer) map.get("id");
-        List<Article> as = articleMapper.list(userId,categoryId,state);
-        Page<Article> p = (Page<Article>) as;
-        pb.setTotal(p.getTotal());
-        pb.setItems(p.getResult());
-        return pb;
+        // List<Article> as = articleMapper.list(userId,categoryId,state);
+        // Page<Article> p = (Page<Article>) as;
+        Page<Article> p = (Page<Article>) articleMapper.list(userId,categoryId,state);
+
+        //创建PageBean对象
+        // PageBean<Article> pb = new PageBean<>();
+        // pb.setTotal(p.getTotal());
+        // pb.setItems(p.getResult());
+        // return pb;
+        return new PageBean<>(p.getTotal(),p.getResult());
     }
 
 
